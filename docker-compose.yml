@@ -19,7 +19,7 @@ services:
       - POSTGRES_DB=teamcity_db
       - PG_DATA=/var/lib/postgresql/data
     volumes:
-      - ./buildserver_pgdata:/var/lib/postgresql/data
+      - /mnt/user0/portainer/teamcity-volume/buildserver_pgdata:/var/lib/postgresql/data
     ports:
       - 5433:5432
 
@@ -28,8 +28,8 @@ services:
     ports:
       - "8112:8111"
     volumes:
-      - ./data_dir:/data/teamcity_server/datadir
-      - ./teamcity-server-logs:/opt/teamcity/logs
+      - /mnt/user0/portainer/teamcity-volume/data_dir:/data/teamcity_server/datadir
+      - /mnt/user0/portainer/teamcity-volume/teamcity-server-logs:/opt/teamcity/logs
     depends_on:
       - db
 
@@ -37,13 +37,13 @@ services:
     image: jetbrains/teamcity-agent:${TEAMCITY_VERSION}
     privileged: true
     volumes:
-      - ./agents/agent-1/conf:/data/teamcity_agent/conf
+      - /mnt/user0/portainer/teamcity-volume/agents/agent-1/conf:/data/teamcity_agent/conf
     environment:
       - DOCKER_IN_DOCKER=start
   teamcity-agent-2:
     image: jetbrains/teamcity-agent:${TEAMCITY_VERSION}
     privileged: true
     volumes:
-      - ./agents/agent-2/conf:/data/teamcity_agent/conf
+      - /mnt/user0/portainer/teamcity-volume/agents/agent-2/conf:/data/teamcity_agent/conf
     environment:
       - DOCKER_IN_DOCKER=start
