@@ -34,19 +34,10 @@ services:
   teamcity-agent-1:
     image: iskrudo/teamcity-agent-9.0:${TEAMCITY_VERSION}
     privileged: true
+    deploy:
+      replicas: 3
     volumes:
       - /mnt/user0/portainer/teamcity-volume/agents/agent-1/conf:/data/teamcity_agent/conf
-    environment:
-      - DOCKER_IN_DOCKER=start
-      - SERVER_URL=http://teamcity:8111
-    depends_on:
-      - teamcity
-
-  teamcity-agent-2:
-    image: iskrudo/teamcity-agent-9.0:${TEAMCITY_VERSION}
-    privileged: true
-    volumes:
-      - /mnt/user0/portainer/teamcity-volume/agents/agent-2/conf:/data/teamcity_agent/conf
     environment:
       - DOCKER_IN_DOCKER=start
       - SERVER_URL=http://teamcity:8111
