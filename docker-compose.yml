@@ -34,7 +34,7 @@ services:
       - db
 
   teamcity-agent-1:
-    image: jetbrains/teamcity-agent:${TEAMCITY_VERSION}
+    image: iskrudo/teamcity-agent-9.0:${TEAMCITY_VERSION}
     privileged: true
     volumes:
       - /mnt/user0/portainer/teamcity-volume/agents/agent-1/conf:/data/teamcity_agent/conf
@@ -45,7 +45,7 @@ services:
       - teamcity
 
   teamcity-agent-2:
-    image: jetbrains/teamcity-agent:${TEAMCITY_VERSION}
+    image: iskrudo/teamcity-agent-9.0:${TEAMCITY_VERSION}
     privileged: true
     volumes:
       - /mnt/user0/portainer/teamcity-volume/agents/agent-2/conf:/data/teamcity_agent/conf
