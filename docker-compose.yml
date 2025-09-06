@@ -26,7 +26,7 @@ services:
   teamcity:
     image: jetbrains/teamcity-server:${TEAMCITY_VERSION}
     ports:
-      - "8112:8111"
+      - "8111:8111"  # Cambiado para usar el puerto 8111 directamente
     volumes:
       - /mnt/user0/portainer/teamcity-volume/data_dir:/data/teamcity_server/datadir
       - /mnt/user0/portainer/teamcity-volume/teamcity-server-logs:/opt/teamcity/logs
@@ -40,6 +40,10 @@ services:
       - /mnt/user0/portainer/teamcity-volume/agents/agent-1/conf:/data/teamcity_agent/conf
     environment:
       - DOCKER_IN_DOCKER=start
+      - SERVER_URL=http://teamcity:8111
+    depends_on:
+      - teamcity
+
   teamcity-agent-2:
     image: jetbrains/teamcity-agent:${TEAMCITY_VERSION}
     privileged: true
@@ -47,3 +51,6 @@ services:
       - /mnt/user0/portainer/teamcity-volume/agents/agent-2/conf:/data/teamcity_agent/conf
     environment:
       - DOCKER_IN_DOCKER=start
+      - SERVER_URL=http://teamcity:8111
+    depends_on:
+      - teamcity
